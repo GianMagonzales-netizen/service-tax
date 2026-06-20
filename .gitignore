@@ -1,0 +1,39 @@
+# IDE y editores
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.DS_Store
+*.swp
+*.swo
+
+# Variables de entorno
+.env
+.env.*
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Backend (Spring Boot/Gradle)
+**/build/
+**/.gradle/
+**/target/
+**/out/
+**/.apt_generated/
+
+# Frontend (Angular/Node)
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+**/tmp/
+**/out-tsc/
+
+# Backups
+*.bak
+*.backup
+*.old
