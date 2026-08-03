@@ -354,3 +354,26 @@
   }
 
 }
+.forgot-password {
+  position: relative;
+  z-index: 9999;
+  width: 100%;
+  margin: 10px 0 16px;
+  text-align: right;
+  pointer-events: auto;
+}
+
+.forgot-password a {
+  position: relative;
+  z-index: 9999;
+  color: #ffd000;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}

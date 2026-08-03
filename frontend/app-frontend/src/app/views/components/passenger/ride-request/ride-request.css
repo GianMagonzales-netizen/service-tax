@@ -1,0 +1,451 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.request-container {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.request-card {
+  width: min(100%, 610px);
+
+  padding: 14px 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 18px;
+
+  background: rgba(15, 15, 15, 0.88);
+  backdrop-filter: blur(18px);
+
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.48);
+
+  color: #ffffff;
+}
+
+.request-header {
+  margin-bottom: 11px;
+}
+
+.eyebrow {
+  display: inline-block;
+
+  margin-bottom: 4px;
+
+  color: #ffd000;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.request-header h1 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(29px, 3vw, 38px);
+  line-height: 1.03;
+}
+
+.request-header p {
+  max-width: 540px;
+
+  margin-top: 6px;
+
+  color: #b8b8b8;
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.ride-form {
+  display: grid;
+  gap: 9px;
+}
+
+/* =========================
+   RUTA
+========================= */
+
+.route-fields {
+  position: relative;
+
+  display: grid;
+  gap: 7px;
+
+  width: 100%;
+
+  padding: 9px 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 15px;
+
+  background: rgba(255, 255, 255, 0.045);
+
+  overflow: hidden;
+}
+
+.route-field {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.route-point {
+  width: 12px;
+  height: 12px;
+
+  flex: 0 0 12px;
+
+  border-radius: 50%;
+}
+
+.pickup-point {
+  border: 3px solid #ffd000;
+  background: #111111;
+}
+
+.destination-point {
+  background: #ffffff;
+}
+
+.route-line {
+  position: absolute;
+
+  top: 37px;
+  bottom: 37px;
+  left: 17px;
+
+  width: 2px;
+
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.field-content {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+}
+
+.field-group label,
+.section-label {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #d6d6d6;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+input,
+select {
+  display: block;
+
+  width: 100%;
+  max-width: 100%;
+  height: 40px;
+
+  padding: 8px 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+
+  outline: none;
+
+  background: rgba(255, 255, 255, 0.055);
+  color: #ffffff;
+
+  font: inherit;
+  font-size: 13px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+input::placeholder {
+  color: #858585;
+}
+
+input:focus,
+select:focus {
+  border-color: #ffd000;
+
+  background: rgba(255, 255, 255, 0.075);
+
+  box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.11);
+}
+
+select option {
+  background: #181818;
+  color: #ffffff;
+}
+
+/* =========================
+   SERVICIOS
+========================= */
+
+.section-block {
+  display: grid;
+  gap: 6px;
+}
+
+.section-block h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 14px;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.service-option {
+  position: relative;
+
+  min-width: 0;
+  min-height: 56px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 7px 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.service-option:hover {
+  transform: translateY(-1px);
+
+  border-color: rgba(255, 208, 0, 0.45);
+
+  background: rgba(255, 208, 0, 0.05);
+}
+
+.service-option.selected {
+  border-color: #ffd000;
+
+  background: rgba(255, 208, 0, 0.1);
+
+  box-shadow: 0 6px 20px rgba(255, 208, 0, 0.08);
+}
+
+.vehicle-icon {
+  flex: 0 0 auto;
+
+  font-size: 20px;
+}
+
+.service-info {
+  min-width: 0;
+
+  display: grid;
+  gap: 2px;
+
+  padding-right: 16px;
+}
+
+.service-info strong {
+  color: #ffffff;
+
+  font-size: 13px;
+}
+
+.service-info small {
+  overflow: hidden;
+
+  color: #a8a8a8;
+
+  font-size: 10px;
+  line-height: 1.25;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selection-indicator {
+  position: absolute;
+
+  top: 8px;
+  right: 8px;
+
+  width: 11px;
+  height: 11px;
+
+  border: 2px solid #777777;
+  border-radius: 50%;
+}
+
+.service-option.selected .selection-indicator {
+  border-color: #ffd000;
+  background: #ffd000;
+
+  box-shadow: inset 0 0 0 2px #171717;
+}
+
+/* =========================
+   BOTÓN
+========================= */
+
+.request-button {
+  width: 100%;
+  min-height: 36px;
+
+  border: none;
+  border-radius: 11px;
+
+  background: #ffd000;
+  color: #000000;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.request-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow: 0 8px 24px rgba(255, 208, 0, 0.24);
+}
+
+.request-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+/* =========================
+   PANTALLAS DE POCA ALTURA
+========================= */
+
+@media (max-height: 740px) and (min-width: 901px) {
+  .request-card {
+    width: min(100%, 600px);
+
+    padding: 10px 16px;
+  }
+
+  .request-header {
+    margin-bottom: 7px;
+  }
+
+  .eyebrow {
+    margin-bottom: 2px;
+
+    font-size: 10px;
+  }
+
+  .request-header h1 {
+    font-size: 31px;
+  }
+
+  .request-header p {
+    margin-top: 3px;
+
+    font-size: 11px;
+  }
+
+  .ride-form {
+    gap: 6px;
+  }
+
+  .route-fields {
+    gap: 5px;
+
+    padding: 7px 10px;
+  }
+
+  .route-line {
+    top: 33px;
+    bottom: 33px;
+    left: 15px;
+  }
+
+  input,
+  select {
+    height: 35px;
+
+    padding: 7px 10px;
+  }
+
+  .service-option {
+    min-height: 49px;
+
+    padding: 5px 8px;
+  }
+
+  .request-button {
+    min-height: 33px;
+  }
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media (max-width: 640px) {
+  .request-card {
+    width: 100%;
+
+    padding: 15px 13px;
+
+    border-radius: 17px;
+  }
+
+  .request-header h1 {
+    font-size: 28px;
+  }
+
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .service-info small {
+    white-space: normal;
+  }
+}

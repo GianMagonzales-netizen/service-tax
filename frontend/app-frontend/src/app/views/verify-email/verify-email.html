@@ -1,0 +1,128 @@
+<div class="verify-page">
+
+  <section class="hero-section">
+
+    <div class="brand-box">
+
+      <div class="brand-logo">
+        T
+      </div>
+
+      <h1>TAXI</h1>
+
+      <p>
+        Tu <span>destino</span>,<br>
+        nuestra prioridad
+      </p>
+
+    </div>
+
+  </section>
+
+  <section class="verify-panel">
+
+    <div class="verify-card">
+
+      <div class="card-indicator"></div>
+
+      <div class="mail-icon">
+        ✉
+      </div>
+
+      <h2>Verifica tu correo</h2>
+
+      <p class="subtitle">
+        Ingresa el código de 6 dígitos que enviamos a tu correo
+      </p>
+
+      <form (ngSubmit)="onVerify()">
+
+        <div class="input-group">
+
+          <input
+            type="email"
+            placeholder="Correo electrónico"
+            [(ngModel)]="email"
+            name="email"
+            autocomplete="email"
+            required
+          >
+
+        </div>
+
+        <div class="input-group code-group">
+
+          <input
+            type="text"
+            placeholder="Código de verificación"
+            [(ngModel)]="code"
+            name="code"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="6"
+            (input)="onCodeInput($event)"
+            required
+          >
+
+        </div>
+
+        <p
+          class="error"
+          *ngIf="errorMessage"
+        >
+          {{ errorMessage }}
+        </p>
+
+        <p
+          class="success"
+          *ngIf="successMessage"
+        >
+          {{ successMessage }}
+        </p>
+
+        <button
+          class="verify-btn"
+          type="submit"
+          [disabled]="isLoading || isResending"
+        >
+          <span>
+            {{ isLoading ? 'Verificando...' : 'Verificar cuenta' }}
+          </span>
+
+          <span *ngIf="!isLoading">
+            →
+          </span>
+        </button>
+
+      </form>
+
+      <div class="resend-container">
+
+        <p>
+          ¿No recibiste el código?
+        </p>
+
+        <button
+          type="button"
+          class="resend-btn"
+          (click)="resendCode()"
+          [disabled]="isLoading || isResending"
+        >
+          {{ isResending ? 'Enviando...' : 'Reenviar código' }}
+        </button>
+
+      </div>
+
+      <div class="back-login">
+
+        <a routerLink="/login">
+          ← Volver al inicio de sesión
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

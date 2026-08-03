@@ -1,0 +1,304 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: block;
+}
+
+/* =========================
+   FONDO
+========================= */
+
+.loading-backdrop {
+  width: 100%;
+  min-height: 100%;
+
+  display: grid;
+  place-items: center;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.82),
+      rgba(0, 0, 0, 0.92)
+    );
+
+  backdrop-filter: blur(12px);
+}
+
+/* =========================
+   TARJETA
+========================= */
+
+.loading-card {
+  width: min(100%, 430px);
+
+  box-sizing: border-box;
+
+  padding: 27px 30px;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+
+  background: rgba(14, 14, 14, 0.94);
+
+  color: #ffffff;
+  text-align: center;
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.58),
+    0 0 35px rgba(255, 208, 0, 0.06);
+
+  animation: cardEntrance 0.25s ease-out;
+}
+
+/* =========================
+   RADAR
+========================= */
+
+.radar {
+  position: relative;
+
+  width: 100px;
+  height: 100px;
+
+  margin: 0 auto 18px;
+
+  display: grid;
+  place-items: center;
+}
+
+.radar-circle {
+  position: absolute;
+  inset: 0;
+
+  border: 2px solid rgba(255, 208, 0, 0.5);
+  border-radius: 50%;
+
+  animation: pulse 2s infinite ease-out;
+}
+
+.circle-two {
+  animation-delay: 1s;
+}
+
+.radar-center {
+  position: relative;
+  z-index: 2;
+
+  width: 58px;
+  height: 58px;
+
+  display: grid;
+  place-items: center;
+
+  border: 2px solid rgba(255, 208, 0, 0.5);
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 208, 0, 0.18),
+      rgba(255, 208, 0, 0.06)
+    );
+
+  font-size: 29px;
+
+  box-shadow:
+    inset 0 0 0 6px rgba(255, 208, 0, 0.03),
+    0 0 25px rgba(255, 208, 0, 0.12);
+}
+
+/* =========================
+   TEXTOS
+========================= */
+
+.loading-card h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.loading-card > p {
+  margin: 9px auto 18px;
+
+  max-width: 350px;
+
+  color: #a9a9a9;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================
+   BARRA DE PROGRESO
+========================= */
+
+.processing-bar {
+  width: 100%;
+  height: 6px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.processing-bar span {
+  display: block;
+
+  width: 42%;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background: linear-gradient(
+    90deg,
+    #b99700,
+    #ffd000,
+    #fff1a6
+  );
+
+  box-shadow: 0 0 14px rgba(255, 208, 0, 0.35);
+
+  animation: loading 1.3s infinite ease-in-out;
+}
+
+/* =========================
+   PASOS
+========================= */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+
+  margin-top: 18px;
+
+  text-align: left;
+}
+
+.step {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  color: #bcbcbc;
+
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.step-number {
+  width: 22px;
+  height: 22px;
+
+  flex: 0 0 22px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(255, 208, 0, 0.4);
+  border-radius: 50%;
+
+  background: rgba(255, 208, 0, 0.09);
+  color: #ffd000;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+/* =========================
+   ANIMACIONES
+========================= */
+
+@keyframes pulse {
+  0% {
+    opacity: 0.85;
+    transform: scale(0.42);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media (max-width: 520px) {
+  .loading-backdrop {
+    padding: 14px;
+  }
+
+  .loading-card {
+    width: 100%;
+
+    padding: 23px 17px;
+
+    border-radius: 19px;
+  }
+
+  .radar {
+    width: 90px;
+    height: 90px;
+
+    margin-bottom: 15px;
+  }
+
+  .radar-center {
+    width: 53px;
+    height: 53px;
+
+    font-size: 26px;
+  }
+
+  .loading-card h2 {
+    font-size: 20px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+}

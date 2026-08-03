@@ -1,0 +1,323 @@
+<div class="driver-page">
+
+  <section class="driver-card">
+
+    <header class="driver-header">
+
+      <div class="step-badge">
+        Registro de conductor
+      </div>
+
+      <h1>
+        Completa tu perfil
+      </h1>
+
+      <p>
+        Registra los datos de tu vehículo
+        y el tipo de servicio que brindarás.
+      </p>
+
+    </header>
+
+    <form
+      (ngSubmit)="onSubmit()"
+      class="driver-form"
+    >
+
+      <section class="form-section">
+
+        <div class="section-title">
+
+          <span class="section-number">
+            1
+          </span>
+
+          <div>
+            <h2>
+              Datos del conductor
+            </h2>
+
+            <p>
+              Información que verán los pasajeros.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="form-grid">
+
+          <div class="field full">
+
+            <label for="name">
+              Nombre del conductor
+            </label>
+
+            <input
+              id="name"
+              name="name"
+              type="text"
+              [(ngModel)]="name"
+              maxlength="100"
+              placeholder="Ejemplo: Gian Marco"
+              required
+            >
+
+          </div>
+
+          <div class="field full">
+
+            <label for="phone">
+              Número de teléfono
+            </label>
+
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              [(ngModel)]="phone"
+              inputmode="numeric"
+              maxlength="15"
+              placeholder="987654321"
+            >
+
+            <small>
+              Debe tener entre 9 y 15 números.
+            </small>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="form-section">
+
+        <div class="section-title">
+
+          <span class="section-number">
+            2
+          </span>
+
+          <div>
+            <h2>
+              Datos del vehículo
+            </h2>
+
+            <p>
+              Ingresa la placa y el modelo del auto.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="form-grid">
+
+          <div class="field">
+
+            <label for="vehiclePlate">
+              Placa
+            </label>
+
+            <input
+              id="vehiclePlate"
+              name="vehiclePlate"
+              type="text"
+              [(ngModel)]="vehiclePlate"
+              (input)="formatPlate()"
+              maxlength="7"
+              placeholder="ABC-123"
+              required
+            >
+
+          </div>
+
+          <div class="field">
+
+            <label for="vehicleModel">
+              Modelo del vehículo
+            </label>
+
+            <input
+              id="vehicleModel"
+              name="vehicleModel"
+              type="text"
+              [(ngModel)]="vehicleModel"
+              placeholder="Toyota Yaris 2023"
+              required
+            >
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <section class="form-section">
+
+        <div class="section-title">
+
+          <span class="section-number">
+            3
+          </span>
+
+          <div>
+            <h2>
+              Tipo de servicio
+            </h2>
+
+            <p>
+              Selecciona la categoría de tu vehículo.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="service-options">
+
+          <label
+            class="service-card"
+            [class.selected]="serviceType === 'STANDARD'"
+          >
+
+            <input
+              type="radio"
+              name="serviceType"
+              value="STANDARD"
+              [(ngModel)]="serviceType"
+            >
+
+            <div class="service-icon">
+              🚕
+            </div>
+
+            <div>
+              <h3>
+                Standard
+              </h3>
+
+              <p>
+                Servicio económico para viajes cotidianos.
+              </p>
+            </div>
+
+          </label>
+
+          <label
+            class="service-card"
+            [class.selected]="serviceType === 'CONFORT'"
+          >
+
+            <input
+              type="radio"
+              name="serviceType"
+              value="CONFORT"
+              [(ngModel)]="serviceType"
+            >
+
+            <div class="service-icon">
+              🚘
+            </div>
+
+            <div>
+              <h3>
+                Confort
+              </h3>
+
+              <p>
+                Vehículos con mayor comodidad para el pasajero.
+              </p>
+            </div>
+
+          </label>
+
+        </div>
+
+      </section>
+
+      <section class="form-section">
+
+        <div class="section-title">
+
+          <span class="section-number">
+            4
+          </span>
+
+          <div>
+            <h2>
+              Ubicación inicial
+            </h2>
+
+            <p>
+              Se utilizará para encontrar pasajeros cercanos.
+            </p>
+          </div>
+
+        </div>
+
+        <button
+          type="button"
+          class="location-button"
+          (click)="getCurrentLocation()"
+          [disabled]="isGettingLocation || isLoading"
+        >
+          {{
+          isGettingLocation
+          ? 'Obteniendo ubicación...'
+          : 'Usar mi ubicación actual'
+          }}
+        </button>
+
+        <div
+          class="location-result"
+          *ngIf="
+            latitude !== null &&
+            longitude !== null
+          "
+        >
+          <span>
+            Ubicación registrada
+          </span>
+
+          <strong>
+            {{ latitude }},
+            {{ longitude }}
+          </strong>
+        </div>
+
+      </section>
+
+      <p
+        class="message error"
+        *ngIf="errorMessage"
+      >
+        {{ errorMessage }}
+      </p>
+
+      <p
+        class="message success"
+        *ngIf="successMessage"
+      >
+        {{ successMessage }}
+      </p>
+
+      <button
+        type="submit"
+        class="submit-button"
+        [disabled]="isLoading || isGettingLocation"
+      >
+        {{
+        isLoading
+        ? 'Registrando conductor...'
+        : 'Finalizar registro'
+        }}
+
+        <span *ngIf="!isLoading">
+          →
+        </span>
+      </button>
+
+    </form>
+
+  </section>
+
+</div>

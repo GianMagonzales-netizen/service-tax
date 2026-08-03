@@ -1,0 +1,33 @@
+<div class="loading-backdrop">
+  <section class="loading-card">
+    <div class="radar">
+      <span class="radar-circle circle-one"></span>
+      <span class="radar-circle circle-two"></span>
+      <span class="radar-center">🚕</span>
+    </div>
+
+    <h2>Estamos procesando tu viaje</h2>
+
+    <p>
+      El orquestador está coordinando automáticamente todos los servicios.
+    </p>
+
+    <div class="processing-bar">
+      <span></span>
+    </div>
+
+    <div class="steps">
+      @for (step of steps; track step; let index = $index) {
+      <div class="step">
+          <span class="step-number">
+            {{ index + 1 }}
+          </span>
+
+        <span>
+            {{ step }}
+          </span>
+      </div>
+      }
+    </div>
+  </section>
+</div>

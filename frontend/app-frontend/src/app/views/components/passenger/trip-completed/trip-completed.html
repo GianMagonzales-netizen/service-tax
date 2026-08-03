@@ -1,0 +1,275 @@
+<section class="completed-container">
+  <div class="completed-card">
+
+    <!-- ÍCONO PRINCIPAL -->
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <!-- ENCABEZADO DINÁMICO -->
+    <div class="completed-header">
+      <span>
+        {{ statusLabel | uppercase }}
+      </span>
+
+      <h1>
+        {{ mainTitle }}
+      </h1>
+
+      <p *ngIf="currentStatus === 'DRIVER_ON_THE_WAY'">
+        Tu solicitud fue aceptada. Revisa los datos del conductor
+        y espera en el punto de recojo.
+      </p>
+
+      <p *ngIf="currentStatus === 'IN_PROGRESS'">
+        El viaje ha comenzado. Dirígete hacia tu destino de forma segura.
+      </p>
+
+      <p *ngIf="currentStatus === 'PAYMENT'">
+        Revisa el detalle del viaje y confirma el pago.
+      </p>
+
+      <p *ngIf="currentStatus === 'COMPLETED'">
+        El viaje y el pago se procesaron correctamente.
+      </p>
+    </div>
+
+    <!-- ACTUALIZANDO ESTADO -->
+    <div
+      class="status-loading"
+      *ngIf="updatingStatus"
+    >
+      {{
+      currentStatus === 'PAYMENT'
+      ? 'Procesando pago...'
+      : 'Actualizando estado del viaje...'
+      }}
+    </div>
+
+    <!-- CONDUCTOR -->
+    <div class="driver-card">
+      <div class="driver-avatar">
+        {{
+        (
+        ride.driverName
+        ?? 'C'
+        ).charAt(0)
+        }}
+      </div>
+
+      <div class="driver-info">
+        <small>
+          Conductor asignado
+        </small>
+
+        <strong>
+          {{ ride.driverName ?? 'No disponible' }}
+        </strong>
+
+        <span>
+          Placa:
+          {{ ride.driverVehiclePlate ?? 'No disponible' }}
+        </span>
+      </div>
+
+      <span class="status-badge">
+        {{ statusLabel }}
+      </span>
+    </div>
+
+    <!-- RESUMEN DEL VIAJE -->
+    <div class="summary-grid">
+
+      <!-- SERVICIO -->
+      <article class="summary-item">
+        <small>
+          Servicio
+        </small>
+
+        <strong>
+          {{ ride.serviceType ?? 'STANDARD' }}
+        </strong>
+      </article>
+
+      <!-- DISTANCIA -->
+      <article class="summary-item">
+        <small>
+          {{
+          currentStatus === 'DRIVER_ON_THE_WAY'
+          ? 'Distancia del conductor'
+          : 'Distancia del viaje'
+          }}
+        </small>
+
+        <strong>
+          {{
+          (ride.distanceKm ?? 0)
+          | number:'1.1-2'
+          }}
+          km
+        </strong>
+      </article>
+
+      <!-- TIEMPO -->
+      <article class="summary-item">
+        <small>
+          {{
+          currentStatus === 'DRIVER_ON_THE_WAY'
+          ? 'Tiempo de llegada'
+          : 'Duración estimada'
+          }}
+        </small>
+
+        <strong>
+          {{ ride.estimatedTimeMinutes ?? 0 }}
+          minutos
+        </strong>
+      </article>
+
+      <!-- TARIFA -->
+      <article class="summary-item featured">
+        <small>
+          {{
+          currentStatus === 'COMPLETED'
+          ? 'Tarifa final'
+          : currentStatus === 'PAYMENT'
+          ? 'Total a pagar'
+          : 'Tarifa estimada'
+          }}
+        </small>
+
+        <strong>
+          {{
+          (
+          currentStatus === 'COMPLETED'
+          ? (
+          ride.finalFare
+          ?? ride.estimatedFare
+          ?? 0
+          )
+          : (
+          ride.estimatedFare
+          ?? 0
+          )
+          )
+          | currency:'PEN':'symbol':'1.2-2'
+          }}
+        </strong>
+      </article>
+
+    </div>
+
+    <!-- DATOS DEL PAGO -->
+    <div
+      class="summary-grid payment-grid"
+      *ngIf="
+        currentStatus === 'PAYMENT'
+        || currentStatus === 'COMPLETED'
+      "
+    >
+
+      <!-- MÉTODO DE PAGO -->
+      <article class="summary-item">
+        <small>
+          Método de pago
+        </small>
+
+        <strong>
+          {{ ride.paymentMethod ?? 'No disponible' }}
+        </strong>
+      </article>
+
+      <!-- ESTADO DEL PAGO -->
+      <article class="summary-item">
+        <small>
+          Estado del pago
+        </small>
+
+        <strong>
+          {{
+          currentStatus === 'COMPLETED'
+          ? (
+          ride.paymentStatus
+          ?? 'COMPLETED'
+          )
+          : 'PENDIENTE'
+          }}
+        </strong>
+      </article>
+
+      <!-- ID DEL PAGO -->
+      <article
+        class="summary-item"
+        *ngIf="currentStatus === 'COMPLETED'"
+      >
+        <small>
+          ID del pago
+        </small>
+
+        <strong>
+          #{{ ride.paymentId ?? 0 }}
+        </strong>
+      </article>
+
+      <!-- CÓDIGO DE TRANSACCIÓN -->
+      <article
+        class="summary-item featured"
+        *ngIf="currentStatus === 'COMPLETED'"
+      >
+        <small>
+          Código de transacción
+        </small>
+
+        <strong>
+          {{ ride.transactionCode ?? 'No disponible' }}
+        </strong>
+      </article>
+
+    </div>
+
+    <!-- ESTADO E ID DEL VIAJE -->
+    <div class="transaction">
+      <div>
+        <small>
+          Estado actual
+        </small>
+
+        <strong>
+          {{ statusLabel }}
+        </strong>
+      </div>
+
+      <div>
+        <small>
+          ID del viaje
+        </small>
+
+        <strong>
+          #{{ ride.rideRequestId ?? 0 }}
+        </strong>
+      </div>
+    </div>
+
+    <!-- MENSAJE DE ERROR -->
+    <div
+      class="status-error"
+      *ngIf="statusError"
+    >
+      {{
+      currentStatus === 'PAYMENT'
+      ? 'No se pudo procesar el pago. Intenta nuevamente.'
+      : 'No se pudo actualizar el estado del viaje. Intenta nuevamente.'
+      }}
+    </div>
+
+    <!-- BOTÓN PRINCIPAL DINÁMICO -->
+    <button
+      type="button"
+      [disabled]="updatingStatus"
+      (click)="handleMainAction()"
+    >
+      {{ buttonLabel }}
+    </button>
+
+  </div>
+</section>

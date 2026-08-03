@@ -1,0 +1,327 @@
+<div class="monitor-page">
+
+  <!-- ENCABEZADO -->
+  <section class="monitor-header">
+
+    <div class="header-info">
+      <p class="eyebrow">
+        MONITOREO SOA
+      </p>
+
+      <h1>
+        Panel de auditoría
+      </h1>
+
+      <p class="subtitle">
+        Revisa los eventos registrados por los servicios del sistema.
+      </p>
+    </div>
+
+    <div class="header-actions">
+
+      <div class="service-status">
+        <span class="status-dot"></span>
+
+        <div class="status-content">
+          <strong>
+            Servicio activo
+          </strong>
+
+          <small>
+            Última actualización:
+            {{ lastUpdate ? formatDate(lastUpdate.toString()) : 'Sin actualizar' }}
+          </small>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="logout()"
+      >
+        <span class="logout-icon">↪</span>
+        <span>Cerrar sesión</span>
+      </button>
+
+    </div>
+
+  </section>
+
+  <!-- MÉTRICAS -->
+  <section class="metrics-grid">
+
+    <article class="metric-card">
+      <span>Total de eventos</span>
+      <strong>{{ totalEvents }}</strong>
+    </article>
+
+    <article class="metric-card">
+      <span>Eventos de hoy</span>
+      <strong>{{ eventsToday }}</strong>
+    </article>
+
+    <article class="metric-card">
+      <span>Usuarios únicos</span>
+      <strong>{{ uniqueUsers }}</strong>
+    </article>
+
+    <article class="metric-card">
+      <span>Entidades únicas</span>
+      <strong>{{ uniqueEntities }}</strong>
+    </article>
+
+  </section>
+
+  <!-- FILTROS -->
+  <section class="filters-card">
+
+    <div class="filters-header">
+
+      <div>
+        <h2>
+          Filtros
+        </h2>
+
+        <p>
+          Busca eventos específicos dentro de la auditoría.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="refresh-button"
+        (click)="loadAudits()"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Actualizando...' : 'Actualizar' }}
+      </button>
+
+    </div>
+
+    <div class="filters-grid">
+
+      <div class="field">
+        <label for="searchText">
+          Buscar
+        </label>
+
+        <input
+          id="searchText"
+          type="text"
+          [(ngModel)]="searchText"
+          (ngModelChange)="applyFilters()"
+          placeholder="Usuario, detalle, IP o entidad"
+        />
+      </div>
+
+      <div class="field">
+        <label for="eventTypeFilter">
+          Tipo de evento
+        </label>
+
+        <select
+          id="eventTypeFilter"
+          [(ngModel)]="eventTypeFilter"
+          (ngModelChange)="applyFilters()"
+        >
+          <option value="">
+            Todos
+          </option>
+
+          <option
+            *ngFor="let eventType of eventTypes"
+            [value]="eventType"
+          >
+            {{ eventType }}
+          </option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="entityTypeFilter">
+          Tipo de entidad
+        </label>
+
+        <select
+          id="entityTypeFilter"
+          [(ngModel)]="entityTypeFilter"
+          (ngModelChange)="applyFilters()"
+        >
+          <option value="">
+            Todas
+          </option>
+
+          <option
+            *ngFor="let entityType of entityTypes"
+            [value]="entityType"
+          >
+            {{ entityType }}
+          </option>
+        </select>
+      </div>
+
+      <div class="field actions-field">
+        <button
+          type="button"
+          class="clear-button"
+          (click)="clearFilters()"
+        >
+          Limpiar filtros
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ESTADO DE CARGA -->
+  <section
+    class="state-card"
+    *ngIf="loading"
+  >
+    Cargando eventos de auditoría...
+  </section>
+
+  <!-- ERROR -->
+  <section
+    class="state-card error-state"
+    *ngIf="!loading && errorMessage"
+  >
+    <h3>
+      No se pudo cargar la auditoría
+    </h3>
+
+    <p>
+      {{ errorMessage }}
+    </p>
+
+    <button
+      type="button"
+      class="retry-button"
+      (click)="loadAudits()"
+    >
+      Reintentar
+    </button>
+  </section>
+
+  <!-- SIN DATOS -->
+  <section
+    class="state-card"
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      filteredAudits.length === 0
+    "
+  >
+    <h3>
+      No hay eventos de auditoría
+    </h3>
+
+    <p>
+      El servicio respondió correctamente, pero la tabla
+      <strong>audit_logs</strong>
+      todavía no contiene registros.
+    </p>
+  </section>
+
+  <!-- TABLA -->
+  <section
+    class="table-card"
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      filteredAudits.length > 0
+    "
+  >
+
+    <div class="table-header">
+
+      <div>
+        <h2>
+          Historial de eventos
+        </h2>
+
+        <p>
+          Mostrando {{ filteredAudits.length }}
+          de {{ audits.length }} eventos.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Evento</th>
+          <th>Entidad</th>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th>Detalle</th>
+          <th>IP</th>
+        </tr>
+        </thead>
+
+        <tbody>
+
+        <tr *ngFor="let audit of filteredAudits">
+
+          <td>
+            {{ formatDate(audit.timestamp) }}
+          </td>
+
+          <td>
+              <span
+                class="event-badge"
+                [ngClass]="getEventClass(audit.eventType)"
+              >
+                {{ audit.eventType }}
+              </span>
+          </td>
+
+          <td>
+            <strong>
+              {{ audit.entityType }}
+            </strong>
+
+            <small *ngIf="audit.entityId">
+              ID: {{ audit.entityId }}
+            </small>
+          </td>
+
+          <td>
+              <span>
+                {{ audit.userEmail || 'Sin correo' }}
+              </span>
+
+            <small *ngIf="audit.userId">
+              ID: {{ audit.userId }}
+            </small>
+          </td>
+
+          <td>
+            {{ audit.userRole || 'Sin rol' }}
+          </td>
+
+          <td class="details-cell">
+            {{ audit.details || 'Sin detalles' }}
+          </td>
+
+          <td>
+            {{ audit.ipAddress || 'No registrada' }}
+          </td>
+
+        </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
+</div>

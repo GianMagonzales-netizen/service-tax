@@ -1,0 +1,112 @@
+<section class="request-container">
+  <div class="request-card">
+    <div class="request-header">
+      <span class="eyebrow">Solicita un vehículo</span>
+
+      <h1>¿A dónde quieres ir?</h1>
+
+      <p>
+        Indica tu ubicación y destino para encontrar automáticamente
+        el mejor conductor disponible.
+      </p>
+    </div>
+
+    <form
+      class="ride-form"
+      #rideForm="ngForm"
+      (ngSubmit)="submitRide()"
+    >
+      <div class="route-fields">
+        <div class="field-group route-field">
+          <span class="route-point pickup-point"></span>
+
+          <div class="field-content">
+            <label for="pickupAddress">Punto de partida</label>
+
+            <input
+              id="pickupAddress"
+              name="pickupAddress"
+              type="text"
+              placeholder="Ejemplo: Plaza San Miguel"
+              [(ngModel)]="request.pickupAddress"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="route-line"></div>
+
+        <div class="field-group route-field">
+          <span class="route-point destination-point"></span>
+
+          <div class="field-content">
+            <label for="destinationAddress">Destino</label>
+
+            <input
+              id="destinationAddress"
+              name="destinationAddress"
+              type="text"
+              placeholder="Ejemplo: Centro de Lima"
+              [(ngModel)]="request.destinationAddress"
+              required
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <h2>Selecciona un servicio</h2>
+
+        <div class="service-grid">
+          @for (service of serviceOptions; track service.value) {
+          <button
+            type="button"
+            class="service-option"
+            [class.selected]="request.serviceType === service.value"
+            (click)="selectService(service.value)"
+          >
+            <span class="vehicle-icon">🚘</span>
+
+            <span class="service-info">
+                <strong>{{ service.name }}</strong>
+                <small>{{ service.description }}</small>
+              </span>
+
+            <span class="selection-indicator"></span>
+          </button>
+          }
+        </div>
+      </div>
+
+      <div class="section-block">
+        <label
+          for="paymentMethod"
+          class="section-label"
+        >
+          Método de pago
+        </label>
+
+        <select
+          id="paymentMethod"
+          name="paymentMethod"
+          [(ngModel)]="request.paymentMethod"
+          required
+        >
+          @for (payment of paymentOptions; track payment.value) {
+          <option [ngValue]="payment.value">
+            {{ payment.name }}
+          </option>
+          }
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="request-button"
+        [disabled]="rideForm.invalid"
+      >
+        Buscar viaje
+      </button>
+    </form>
+  </div>
+</section>

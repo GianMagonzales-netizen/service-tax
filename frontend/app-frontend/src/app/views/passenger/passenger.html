@@ -1,0 +1,81 @@
+<div class="passenger-page">
+  <header class="topbar">
+    <a class="brand" routerLink="/passenger">
+      <span class="brand-icon">T</span>
+
+      <span class="brand-text">
+        <strong>Taxi SOA</strong>
+        <small>Smart mobility</small>
+      </span>
+    </a>
+
+    <div class="topbar-actions">
+      <span class="online-status">
+        <span class="online-dot"></span>
+        Servicio activo
+      </span>
+
+      <button
+        type="button"
+        class="logout-button"
+        (click)="logout()"
+      >
+        <span class="logout-icon">↪</span>
+        <span>Cerrar sesión</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="page-content">
+    <section class="welcome-banner">
+      <div class="welcome-content">
+        <span class="welcome-label">
+          Viajes rápidos y seguros
+        </span>
+
+        <h1>
+          Tu destino, nuestra prioridad
+        </h1>
+
+        <p>
+          Solicita un vehículo y nuestro sistema encontrará
+          automáticamente el mejor conductor disponible.
+        </p>
+
+        <div class="banner-decoration">
+          <div class="taxi-circle">
+            🚕
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="passenger-main">
+      <div class="main-content">
+        @if (errorMessage) {
+        <div class="error-alert">
+          <strong>No se pudo completar la operación</strong>
+          <span>{{ errorMessage }}</span>
+        </div>
+        }
+
+        @if (currentStep === 'REQUEST') {
+        <app-ride-request
+          (rideRequested)="handleRideRequested($event)"
+        ></app-ride-request>
+        }
+
+        @if (currentStep === 'COMPLETED' && rideResponse) {
+        <app-trip-completed
+          [ride]="rideResponse"
+          (newRide)="startNewRide()"
+        ></app-trip-completed>
+        }
+      </div>
+    </main>
+  </div>
+
+  @if (isLoading) {
+  <app-loading-overlay></app-loading-overlay>
+  }
+</div>

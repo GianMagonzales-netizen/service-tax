@@ -2,7 +2,10 @@
 
   <section class="hero-section">
     <div class="brand-box">
-      <div class="brand-logo">T</div>
+
+      <div class="brand-logo">
+        T
+      </div>
 
       <h1>TAXI</h1>
 
@@ -10,6 +13,7 @@
         Tu <span>destino</span>,<br>
         nuestra prioridad
       </p>
+
     </div>
   </section>
 
@@ -37,7 +41,11 @@
             type="email"
             placeholder="Correo electrónico"
             [(ngModel)]="email"
-            name="email">
+            name="email"
+            autocomplete="email"
+            required
+          >
+
         </div>
 
         <div class="input-group">
@@ -46,18 +54,30 @@
             type="password"
             placeholder="Contraseña"
             [(ngModel)]="password"
-            name="password">
+            name="password"
+            autocomplete="current-password"
+            required
+          >
+
         </div>
 
         <div class="forgot-password">
-          ¿Olvidaste tu contraseña?
+          <a href="/forgot-password">
+            ¿Olvidaste tu contraseña?
+          </a>
         </div>
 
-        <p class="error" *ngIf="errorMessage">
+        <p
+          class="error"
+          *ngIf="errorMessage"
+        >
           {{ errorMessage }}
         </p>
 
-        <button class="login-btn" type="submit">
+        <button
+          class="login-btn"
+          type="submit"
+        >
           <span>Iniciar sesión</span>
           <span>→</span>
         </button>
@@ -66,27 +86,54 @@
 
       <div class="divider">
         <span></span>
-        <p>O continúa con</p>
+
+        <p>
+          O continúa con
+        </p>
+
         <span></span>
       </div>
 
       <div class="social-login">
-        <button type="button" class="social-btn google">
-          <img src="/icons/google.png" alt="Google">
+
+        <button
+          type="button"
+          class="social-btn google"
+        >
+          <img
+            src="/icons/google.png"
+            alt="Google"
+          >
         </button>
 
-        <button type="button" class="social-btn">
-          <img src="/icons/apple.png" alt="Apple">
+        <button
+          type="button"
+          class="social-btn"
+        >
+          <img
+            src="/icons/apple.png"
+            alt="Apple"
+          >
         </button>
 
-        <button type="button" class="social-btn">
-          <img src="/icons/facebook.png" alt="Facebook">
+        <button
+          type="button"
+          class="social-btn"
+        >
+          <img
+            src="/icons/facebook.png"
+            alt="Facebook"
+          >
         </button>
+
       </div>
 
       <p class="register-text">
         ¿No tienes cuenta?
-        <a routerLink="/register">Regístrate</a>
+
+        <a routerLink="/register">
+          Regístrate
+        </a>
       </p>
 
     </div>

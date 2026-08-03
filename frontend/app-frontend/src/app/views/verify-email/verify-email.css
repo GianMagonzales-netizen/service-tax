@@ -1,0 +1,347 @@
+* {
+  box-sizing: border-box;
+}
+
+.verify-page {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  background:
+    linear-gradient(
+      rgba(0, 0, 0, 0.76),
+      rgba(0, 0, 0, 0.9)
+    ),
+    url('/images/taxi-background.jpg');
+  background-position: center;
+  background-size: cover;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+}
+
+/* ============================= */
+/* SECCIÓN IZQUIERDA */
+/* ============================= */
+
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.brand-box {
+  text-align: center;
+  color: #ffffff;
+}
+
+.brand-logo {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #ffd400;
+  border-radius: 24px;
+  background: rgba(255, 212, 0, 0.1);
+  color: #ffd400;
+  font-size: 42px;
+  font-weight: 800;
+  box-shadow:
+    0 0 30px rgba(255, 212, 0, 0.16);
+}
+
+.brand-box h1 {
+  margin: 0;
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: 7px;
+}
+
+.brand-box p {
+  margin-top: 16px;
+  color: #d2d2d2;
+  font-size: 24px;
+  line-height: 1.35;
+}
+
+.brand-box p span {
+  color: #ffd400;
+  font-weight: 700;
+}
+
+/* ============================= */
+/* PANEL DERECHO */
+/* ============================= */
+
+.verify-panel {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: rgba(8, 8, 8, 0.94);
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.verify-card {
+  width: 100%;
+  max-width: 410px;
+  padding: 36px 34px 32px;
+  border: 1px solid #292929;
+  border-radius: 28px;
+  background: #0d0d0d;
+  color: #ffffff;
+  text-align: center;
+  box-shadow:
+    0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+.card-indicator {
+  width: 70px;
+  height: 5px;
+  margin: 0 auto 18px;
+  border-radius: 20px;
+  background: #ffd400;
+  box-shadow:
+    0 0 15px rgba(255, 212, 0, 0.25);
+}
+
+.mail-icon {
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #544800;
+  border-radius: 18px;
+  background: #262100;
+  color: #ffd400;
+  font-size: 30px;
+}
+
+.verify-card h2 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.subtitle {
+  max-width: 320px;
+  margin: 8px auto 26px;
+  color: #a6a6a6;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ============================= */
+/* INPUTS */
+/* ============================= */
+
+.input-group {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.input-group input {
+  width: 100%;
+  height: 54px;
+  padding: 0 18px;
+  border: 1px solid #303030;
+  border-radius: 17px;
+  background: #1b1b1b;
+  color: #ffffff;
+  font-size: 15px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.input-group input::placeholder {
+  color: #969696;
+}
+
+.input-group input:focus {
+  border-color: #ffd400;
+  background: #202020;
+  box-shadow:
+    0 0 0 3px rgba(255, 212, 0, 0.09);
+}
+
+.code-group input {
+  text-align: center;
+  color: #ffd400;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 8px;
+}
+
+/* ============================= */
+/* MENSAJES */
+/* ============================= */
+
+.error,
+.success {
+  margin: 4px 0 14px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.error {
+  color: #ff5f67;
+}
+
+.success {
+  color: #45d483;
+}
+
+/* ============================= */
+/* BOTÓN PRINCIPAL */
+/* ============================= */
+
+.verify-btn {
+  width: 100%;
+  height: 54px;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  border: none;
+  border-radius: 17px;
+  background: #ffd400;
+  color: #090909;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.verify-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow:
+    0 10px 25px rgba(255, 212, 0, 0.16);
+}
+
+.verify-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.verify-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ============================= */
+/* REENVIAR CÓDIGO */
+/* ============================= */
+
+.resend-container {
+  margin-top: 23px;
+}
+
+.resend-container p {
+  margin: 0 0 6px;
+  color: #979797;
+  font-size: 13px;
+}
+
+.resend-btn {
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  color: #ffd400;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.resend-btn:hover:not(:disabled) {
+  text-decoration: underline;
+}
+
+.resend-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ============================= */
+/* VOLVER AL LOGIN */
+/* ============================= */
+
+.back-login {
+  margin-top: 23px;
+  padding-top: 20px;
+  border-top: 1px solid #272727;
+}
+
+.back-login a {
+  color: #acacac;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.back-login a:hover {
+  color: #ffd400;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 900px) {
+  .verify-page {
+    display: block;
+    background: #090909;
+  }
+
+  .hero-section {
+    display: none;
+  }
+
+  .verify-panel {
+    min-height: 100vh;
+    padding: 22px;
+    border-left: none;
+  }
+
+  .verify-card {
+    max-width: 430px;
+  }
+}
+
+@media (max-width: 480px) {
+  .verify-panel {
+    padding: 14px;
+  }
+
+  .verify-card {
+    padding: 30px 22px 26px;
+    border-radius: 24px;
+  }
+
+  .verify-card h2 {
+    font-size: 27px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .input-group input,
+  .verify-btn {
+    height: 52px;
+  }
+}
